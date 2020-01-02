@@ -1,32 +1,51 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div>
+    <input type="text" v-model="title" />
+    <br />
+    <input type="text" v-model="content" />
+    <br />
+    <button @click="changgeData">发布</button>
+    <div>
+      <demo1
+        v-for="(item,index) in list"
+        :key="index"
+        :title="item.title"
+        :content="item.content"
+        @sevenActive="sevenActiveHandler"
+      ></demo1>
     </div>
-    <router-view/>
+    <div>
+      <Demo2>
+        <div slot="title">xixixixixix</div>
+      </Demo2>
+    </div>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import Demo1 from '@/components/Demo1.vue'
+import Demo2 from '@/components/Demo2.vue'
+export default {
+  components: {
+    Demo1,
+    // eslint-disable-next-line vue/no-unused-components
+    Demo2
+  },
+  data: () => ({
+    title: '',
+    content: '',
+    list: []
+  }),
+  methods: {
+    changgeData () {
+      this.list.push({
+        title: this.title,
+        content: this.content
+      })
+    },
+    sevenActiveHandler (data) {
+      console.log(data)
+    }
+  }
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
