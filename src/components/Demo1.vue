@@ -14,8 +14,7 @@ export default {
       required: true
     },
     content: {
-      type: Number,
-      required: false
+      type: String
     }
   },
 
